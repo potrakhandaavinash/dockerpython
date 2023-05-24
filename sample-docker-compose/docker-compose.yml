@@ -1,0 +1,19 @@
+version: '3'
+services:
+    my-redis-server:
+        image: redis
+        expose:
+            - '6379'
+       # volumes:
+        #    - ./redis-data:/data
+
+    visitor-app:
+        build:
+            dockerfile: Dockerfile
+            context: ./
+        ports:
+            - '5555:5555'
+        depends_on:
+            - my-redis-server
+        environment:
+            SERVERPORT: 5555
